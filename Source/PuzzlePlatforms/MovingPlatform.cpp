@@ -26,9 +26,11 @@ void AMovingPlatform::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (!HasAuthority()) {
+	if (!HasAuthority())
 		return;
-	}
+
+	if (ActiveTriggers < 1)
+		return;
 
 	FVector Target;
 
@@ -45,4 +47,15 @@ void AMovingPlatform::Tick(float DeltaTime)
 		StartLocation = tmp;
 	}
 
+}
+
+void AMovingPlatform::AddActiveTrigger()
+{
+	ActiveTriggers++;
+}
+
+void AMovingPlatform::RemoveActiveTrigger()
+{
+	if (ActiveTriggers > 0)
+		ActiveTriggers--;
 }
