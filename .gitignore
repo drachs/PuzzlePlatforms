@@ -12,3 +12,4 @@ Saved
 *.xcodeproj
 *.xcworkspace
 Build/*
+enc_temp_folder

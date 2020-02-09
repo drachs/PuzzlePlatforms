@@ -5,6 +5,41 @@
 #include "Kismet/GameplayStatics.h"
 #include "PuzzlePlatformsGameInstance.h"
 
+void UMainMenu::Setup(void)
+{
+	AddToViewport();
+
+	UWorld* World = GetWorld();
+	if (!ensure(World != nullptr)) return;
+
+	APlayerController* PC = World->GetFirstPlayerController();
+	if (!ensure(PC != nullptr)) return;
+
+	FInputModeUIOnly InputModeData;
+	InputModeData.SetWidgetToFocus(TakeWidget());
+	InputModeData.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
+
+	PC->SetInputMode(InputModeData);
+	PC->bShowMouseCursor = true;
+
+}
+
+void UMainMenu::OnLevelRemovedFromWorld(ULevel * InLevel, UWorld * InWorld)
+{
+	RemoveFromViewport();
+
+	UWorld* World = GetWorld();
+	if (!ensure(World != nullptr)) return;
+
+	APlayerController* PC = World->GetFirstPlayerController();
+	if (!ensure(PC != nullptr)) return;
+
+	FInputModeGameOnly InputModeData;
+	PC->SetInputMode(InputModeData);
+
+	PC->bShowMouseCursor = false;
+}
+
 bool UMainMenu::Initialize()
 {
 	bool Success = Super::Initialize();

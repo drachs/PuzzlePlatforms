@@ -13,7 +13,7 @@ APlatformTrigger::APlatformTrigger()
 
 	TriggerVolume = CreateDefaultSubobject<UBoxComponent>(FName("TriggerVolume"));
 	if (!ensure(TriggerVolume != nullptr)) return;
-
+	
 	RootComponent = TriggerVolume;
 
 	TriggerVolume->OnComponentBeginOverlap.AddDynamic(this, &APlatformTrigger::OnOverlapBegin);

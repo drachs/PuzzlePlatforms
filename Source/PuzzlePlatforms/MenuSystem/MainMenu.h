@@ -18,7 +18,20 @@ class PUZZLEPLATFORMS_API UMainMenu : public UUserWidget
 public:
 	IMenuInterface* MenuInterface;
 
+	/**
+	 * Display the Menu
+	 */
+	void Setup(void);
+
 protected:
+	/**
+	 * Called by the engine when the Level is changed
+	 */
+	virtual void OnLevelRemovedFromWorld(ULevel* InLevel, UWorld* InWorld) override;
+
+	/**
+	 * Called by the game some point after construction
+	 */
 	virtual bool Initialize() override;
 
 private:
