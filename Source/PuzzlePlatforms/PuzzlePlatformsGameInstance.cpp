@@ -5,13 +5,16 @@
 #include "UObject/ConstructorHelpers.h"
 #include "PlatformTrigger.h"
 #include "Blueprint/UserWidget.h"
+#include "MenuSystem/MainMenu.h"
 
 UPuzzlePlatformsGameInstance::UPuzzlePlatformsGameInstance(const FObjectInitializer& ObjectInitializer)
 {	
-	static ConstructorHelpers::FClassFinder<UUserWidget> Find_MenuClass(TEXT("/Game/MenuSystem/WBP_MainMenu"));
+	static ConstructorHelpers::FClassFinder<UMainMenu> Find_MenuClass(TEXT("/Game/MenuSystem/WBP_MainMenu"));
 	if (!ensure(Find_MenuClass.Class != nullptr)) return;
-
+	
 	MenuClass = Find_MenuClass.Class;
+
+
 }
 
 void UPuzzlePlatformsGameInstance::Init()
@@ -22,7 +25,7 @@ void UPuzzlePlatformsGameInstance::Init()
 void UPuzzlePlatformsGameInstance::LoadMenu()
 {
 	if (!ensure(MenuClass != nullptr)) return;
-	UUserWidget* Menu = CreateWidget<UUserWidget>(this, MenuClass);
+	UMainMenu* Menu = CreateWidget<UMainMenu>(this, MenuClass);
 
 	Menu->AddToViewport();
 
@@ -35,12 +38,14 @@ void UPuzzlePlatformsGameInstance::LoadMenu()
 
 	PC->SetInputMode(InputModeData);
 	PC->bShowMouseCursor = true;
+
+	Menu->MenuInterface = this;
 }
 
 void UPuzzlePlatformsGameInstance::Host()
 {
 	if (GEngine)
-		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("Hosting"));
+		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Green, TEXT("Hosting (Reload)"));
 
 	UWorld* World = GetWorld();
 	if (!ensure(World != nullptr)) return;
