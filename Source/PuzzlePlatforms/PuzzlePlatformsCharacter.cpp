@@ -8,6 +8,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "PuzzlePlatformsGameInstance.h"
 
 //////////////////////////////////////////////////////////////////////////
 // APuzzlePlatformsCharacter
@@ -74,6 +75,10 @@ void APuzzlePlatformsCharacter::SetupPlayerInputComponent(class UInputComponent*
 
 	// VR headset functionality
 	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &APuzzlePlatformsCharacter::OnResetVR);
+
+	UPuzzlePlatformsGameInstance* GI = Cast<UPuzzlePlatformsGameInstance>(GetGameInstance());
+	if (GI) 
+		PlayerInputComponent->BindAction("InGameMenu", IE_Pressed, GI, &UPuzzlePlatformsGameInstance::ToggleInGameMenu);
 }
 
 

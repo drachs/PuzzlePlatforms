@@ -24,13 +24,19 @@ public:
 	void LoadMenu();
 
 	UFUNCTION(Exec)
+	void ToggleInGameMenu();
+
+	UFUNCTION(Exec)
 	void Host() override;
 		
 	UFUNCTION(Exec)
 	void Join(const FString& Address) override;
 
 private:
+	UPROPERTY()
+	class UInGameMenu* InGameMenu = nullptr;
+
 	TSubclassOf<class UMainMenu> MenuClass;
-	
-	
+
+	TSubclassOf<class UInGameMenu> InGameMenuClass;
 };

@@ -71,7 +71,7 @@ void UMainMenu::OnHostClicked()
 
 void UMainMenu::OnJoinClicked(void)
 {
-	MenuSwitcher->SetActiveWidgetIndex(1);
+	MenuSwitcher->SetActiveWidget(JoinMenu);
 }
 
 void UMainMenu::OnJoinJoinClicked()
@@ -83,5 +83,7 @@ void UMainMenu::OnJoinJoinClicked()
 
 void UMainMenu::OnJoinCancelClicked()
 {
-	MenuSwitcher->SetActiveWidgetIndex(0);
+	MenuSwitcher->SetActiveWidget(MainMenu);
+
 }
+	
