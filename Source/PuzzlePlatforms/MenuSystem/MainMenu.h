@@ -41,11 +41,30 @@ private:
 	UPROPERTY(meta = (BindWidget))
 	class UButton* Btn_Join;
 
+	UPROPERTY(meta = (BindWidget))
+	class UButton* Btn_Join_Cancel;
+
+	UPROPERTY(meta = (BindWidget))
+	class UButton* Btn_Join_Join;
+
+	UPROPERTY(meta = (BindWidget))
+	class UWidgetSwitcher* MenuSwitcher;
+
+	UPROPERTY(meta = (BindWidget))
+	class UEditableTextBox* Input_IPAddress;
+
 	UFUNCTION()
 	void OnHostClicked();
 
 	UFUNCTION()
 	void OnJoinClicked();
+	
+	UFUNCTION()
+	void OnJoinJoinClicked();
+
+
+	UFUNCTION()
+	void OnJoinCancelClicked();
 
 
 	

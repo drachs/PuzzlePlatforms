@@ -2,6 +2,8 @@
 
 #include "MainMenu.h"
 #include "Components/Button.h"
+#include "Components/WidgetSwitcher.h"
+#include "Components/EditableTextBox.h"
 #include "Kismet/GameplayStatics.h"
 #include "PuzzlePlatformsGameInstance.h"
 
@@ -45,11 +47,17 @@ bool UMainMenu::Initialize()
 	bool Success = Super::Initialize();
 	if (!ensure(Success)) return Success;
 	
-	if (!ensure(Btn_Host != nullptr)) return false;
-	Btn_Host->OnClicked.AddDynamic(this, &UMainMenu::OnHostClicked);
+	if (ensure(Btn_Host != nullptr)) 
+		Btn_Host->OnClicked.AddDynamic(this, &UMainMenu::OnHostClicked);
 
-	if (!ensure(Btn_Join != nullptr)) return false;
-	Btn_Host->OnClicked.AddDynamic(this, &UMainMenu::OnJoinClicked);
+	if (ensure(Btn_Join != nullptr)) 
+		Btn_Join->OnClicked.AddDynamic(this, &UMainMenu::OnJoinClicked);
+
+	if (ensure(Btn_Join_Join != nullptr))
+		Btn_Join_Join->OnClicked.AddDynamic(this, &UMainMenu::OnJoinJoinClicked);
+
+	if (ensure(Btn_Join_Cancel != nullptr))
+		Btn_Join_Cancel->OnClicked.AddDynamic(this, &UMainMenu::OnJoinCancelClicked);
 
 	return true;
 }
@@ -63,8 +71,17 @@ void UMainMenu::OnHostClicked()
 
 void UMainMenu::OnJoinClicked(void)
 {
-	UPuzzlePlatformsGameInstance* GI = Cast<UPuzzlePlatformsGameInstance>(UGameplayStatics::GetGameInstance(this));
-	if (!ensure(GI != nullptr)) return;
+	MenuSwitcher->SetActiveWidgetIndex(1);
+}
 
-	GI->Join(TEXT("127.0.0.1"));
+void UMainMenu::OnJoinJoinClicked()
+{
+	if (ensure(MenuInterface != nullptr)) {
+		MenuInterface->Join(Input_IPAddress->Text.ToString());
+	}
+}
+
+void UMainMenu::OnJoinCancelClicked()
+{
+	MenuSwitcher->SetActiveWidgetIndex(0);
 }
