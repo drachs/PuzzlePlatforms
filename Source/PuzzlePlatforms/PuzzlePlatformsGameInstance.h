@@ -32,6 +32,11 @@ public:
 	UFUNCTION(Exec)
 	void Join(const FString& Address) override;
 
+	UFUNCTION(Exec)
+	void MainMenu() override;
+
+	void QuitGame() override;
+
 private:
 	UPROPERTY()
 	class UInGameMenu* InGameMenu = nullptr;

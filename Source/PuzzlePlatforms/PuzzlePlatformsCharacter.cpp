@@ -77,6 +77,7 @@ void APuzzlePlatformsCharacter::SetupPlayerInputComponent(class UInputComponent*
 	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &APuzzlePlatformsCharacter::OnResetVR);
 
 	UPuzzlePlatformsGameInstance* GI = Cast<UPuzzlePlatformsGameInstance>(GetGameInstance());
+
 	if (GI) 
 		PlayerInputComponent->BindAction("InGameMenu", IE_Pressed, GI, &UPuzzlePlatformsGameInstance::ToggleInGameMenu);
 }

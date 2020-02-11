@@ -68,7 +68,6 @@ private:
 	UFUNCTION()
 	void OnJoinJoinClicked();
 
-
 	UFUNCTION()
 	void OnJoinCancelClicked();
 
